@@ -1,0 +1,50 @@
+praccomicdb
+
+comic
+episode
+episodePage
+
+json-server --watch data/comic.json
+
+npm run serve 
+
+npm nodemon 
+
+// make sure that the image paths are accurate in both vue plugin & the database 
+
+
+Updating npm and node_modules 
+--------------------------------------
+
+Remove the node_modules folder in your project root.
+
+Update your Node.js version to the latest 16.x version.2.1
+
+Verify the update has worked by issuing node -v in the terminal.
+
+Update your npm: Run npm i -g npm in the terminal.
+
+3.1 Very the update has worked by issuing npm -v in the terminal.
+
+Run npm install in your project's root folder.
+
+Source: https://stackoverflow.com/questions/70811364/typeerror-cannot-read-property-normalmodule-of-undefined
+
+
+
+
+
+Things to work on 
+---------------------------
+
+KeyDown KeyUp Functions on VUE JS 
+Make the website a Progressive Web App (PWA)
+
+Make actual site 
+
+Things done 
+-----------------------
+
+Environment setup for database and URLs in .env file 
+Basic functions minus keyboard functionality 
+

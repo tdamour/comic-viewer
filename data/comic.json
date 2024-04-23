@@ -1,0 +1,49 @@
+{
+  "comic":{
+    "episodes": [
+        {
+          "id": 1,
+          "pages":[
+            {
+              "id": 1,
+              "image": "../img/comic/episodes/ep01/ep01_pg01.png"
+            },
+             {
+              "id": 2,
+              "image": "../img/comic/episodes/ep01/ep01_pg02.png"
+            },
+             {
+              "id": 3,
+              "image": "../img/comic/episodes/ep01/ep01_pg03.png"
+            }
+          ]
+        },
+       {
+          "id": 2,
+          "pages":[
+            {
+              "id": 1,
+              "image": "../img/comic/episodes/ep02/ep01_pg04.png"
+            },
+             {
+              "id": 2,
+              "image": "../img/comic/episodes/ep02/ep01_pg08.png"
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "pages":[
+            {
+              "id": 1,
+              "image": "../img/comic/episodes/ep02/ep01_pg04.png"
+            },
+             {
+              "id": 2,
+              "image": "../img/comic/episodes/ep01/ep01_pg01.png"
+            }
+          ]
+        }
+    ]
+  } 
+}
