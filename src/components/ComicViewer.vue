@@ -66,6 +66,10 @@ export default {
         this.latestEpisode = this.comic[0].slice(-1);   
         let latestEpisodeId = this.latestEpisode[0].id;
 
+        console.log("LATEST EPISODE in onPageActionMobileVersion ===V");
+        console.log(latestEpisodeId); 
+
+
       // Next 
       if(turnPageStatus == "next")
       {
@@ -87,7 +91,6 @@ export default {
         }
         return this.selectedEpisodeId; 
       }
-
       // Previous
       else if(turnPageStatus == "prev")
       {
