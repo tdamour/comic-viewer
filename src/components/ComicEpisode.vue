@@ -7,7 +7,7 @@
 
     <div class="container-fluid row d-flex justify-content-center">
       <div class="col-6" v-if="episodeNum != 1">
-        <button value="prev" ref="prevEpBtn" id="prevEpBtn" @click="episodeAction($event)" @keyup.left="episodeAction($event)" class="btn btn-primary w-100 p-3 fs-1 directBtns">
+        <button value="prev" ref="prevEpBtn" id="prevEpBtn" @click="episodeAction($event)" class="btn btn-primary w-100 p-3 fs-1 directBtns">
           Prev
         </button>
       </div>
@@ -15,7 +15,7 @@
       <!-- v-if="episodeNum != latestEpisode[0].id" v-show="episodeNum != latestEpisode[0].id" -->
       <!--  @keydown="episodeActionKey($event)"  -->
       <div class="col-6" v-if="episodeNum != 3">
-        <button value="next" ref="nextEpBtn" id="nextEpBtn" @click="episodeAction($event)" @keyup.left="episodeAction($event)" class="btn btn-primary w-100 p-3 fs-1 directBtns">
+        <button value="next" ref="nextEpBtn" id="nextEpBtn" @click="episodeAction($event)" class="btn btn-primary w-100 p-3 fs-1 directBtns">
           Next
         </button>
       </div>
@@ -34,7 +34,6 @@ export default {
   name: "ComicEpisode",
   data(){
     return {
-       keypressed: "",
        pagesArray: []
       }
   },
@@ -43,37 +42,25 @@ export default {
   },
   methods:{
     episodeAction(e){
-      e.preventDefault(); 
-      if (e.type === 'click') {
-        let turnPageStatus = e.target.value; 
-        this.$emit('update-episode',this.episodeNum, turnPageStatus)
+      let turnPageStatus
+      e.preventDefault();
+      e.stopPropagation(); 
+      console.log(e.type);  
+      if (e.type == 'click') {
+        turnPageStatus = e.target.value; 
       }
-    },
-    episodeActionKey(e){
-
-      e.preventDefault(); 
-
-      let turnPageStatus;
-      try {
-          // left arrow action 
-          if (e.type === 'keydown' && e.keyCode === 37) 
-          {
-            turnPageStatus = "prev";
-          }
-          // right arrow action 
-          else if (e.type === 'keydown' && e.keyCode === 39) 
-          {
-            turnPageStatus = "next";
-          }
-
-            if(this.episodeNum == this.selectedEpisodeId)
-            {
-              console.log("Test => turnPageStatus: " + turnPageStatus + " and EpisodeNum: " + this.episodeNum)
-              return this.$emit('update-episode',this.episodeNum, turnPageStatus)
-            }
+      else if (e.type === 'keyup' && e.keyCode === 37)
+      {
+        turnPageStatus = "prev";
       }
-      catch(error){
-        console.log(error);
+      else if (e.type === 'keyup' && e.keyCode === 39)
+      {
+        turnPageStatus = "next";
+      }
+      console.log("TURN STATUS IS " + turnPageStatus);  
+      if(turnPageStatus != null || turnPageStatus != undefined)
+      {
+        this.$emit('update-episode',this.episodeNum, turnPageStatus); 
       }
     },
     callPage(id){
@@ -86,32 +73,30 @@ export default {
       catch(error){
         console.log(error);
       }
+    },
+    handleKeyup (e) {
+    	switch (e.keyCode) {
+        case 37:
+          this.episodeAction(e);
+          break;
+         case 39:  
+          this.episodeAction(e);
+          break;
+      }
     }
   },
-  mounted(){
-    // console.log("LATEST EPISODE ====V"); 
-    // if(this.latestEpisode[0].id != null || this.latestEpisode[0].id != undefined){
-    //   console.log(this.latestEpisode[0].id); 
-    // }
-
-    // call page with episode num 
-    this.callPage(this.episodeNum)
-    // initialize key down action for directional key actions... 
-    // window.addEventListener('keydown', this.episodeAction);
-    
-    window.addEventListener('keyup', function(event) {
-      if (event.type === 'keyup' && e.keyCode === 37 || event.type === 'keyup' && e.keyCode === 39) { 
-        this.episodeAction(event); 
-      }
-    });
-
+  beforeMount () {
+  	window.addEventListener('keyup', this.handleKeyup);
+    this.callPage(this.episodeNum);
   },
+  beforeDestroy () {
+  	window.removeEventListener('keyup', this.handleKeyup);
+  }
 };
 </script>
 
 <style>
   #episodeHolderDiv{
-    /* background: #BEBEBE;  */
     background: #000; 
     padding: 10px 5px; 
     margin: 15px 0; 
