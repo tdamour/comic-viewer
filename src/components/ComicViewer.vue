@@ -1,18 +1,27 @@
 <template>
   <div id="comicViewer">
-     <div class="container-fluid row my-2" id="menu" v-show="selectedEpisodeId == 0">
+     
+    <div class="container-fluid row my-2" id="menu" v-show="selectedEpisodeId == 0">
+     
       <div class="col-sm-12 col-md-6 mt-1">
         <button value="1" class="btn btn-success w-100 p-3 fs-1" @click="onSelectEpisodeClick($event)">Episode 1</button>
       </div>
+
       <div class="col-sm-12 col-md-6 mt-1">
         <button value="2" class="btn btn-success w-100 p-3 fs-1" @click="onSelectEpisodeClick($event)">Episode 2</button>
       </div>
+
     </div>
+
     <div class="container-fluid row my-2" id="menu" v-show="selectedEpisodeId == 0">
+
       <div class="col-sm-12 col-md-6 mt-1">
         <button value="3" class="btn btn-success w-100 p-3 fs-1" @click="onSelectEpisodeClick($event)">Episode 3</button>
       </div>
+
     </div>
+
+
     <div class="container-fluid row" id="menu" v-show="selectedEpisodeId != 0">
       <div class="col-sm-12 col-md-6">
         <button value="0" class="btn btn-success w-100 p-3 fs-1" @click="onSelectEpisodeClick($event)">Return to Menu</button>
@@ -20,9 +29,11 @@
       <div class="col-sm-12 col-md-6">
       </div>
     </div>
+
       <div v-for="episode in comic[0]" :key="episode.id" class="w-100">
-        <ComicEpisode :episodeNum="episode.id" :selectedEpisodeId="selectedEpisodeId" @update-episode="onPageAction" :latestEpisode="latestEpisode"/>
+        <ComicEpisode :episodeNum="episode.id" :selectedEpisodeId="selectedEpisodeId" @update-episode="episodeAction" :latestEpisode="latestEpisode"/>
       </div>   
+
   </div>
 </template>
 
@@ -53,6 +64,34 @@ export default {
     {
       this.selectedEpisodeId = e.target.value; 
       return this.selectedEpisodeId; 
+    }, 
+    episodeAction(e, episodeNum){
+
+      let turnPageStatus
+      e.preventDefault();
+      e.stopPropagation();
+      
+      if(episodeNum == undefined){
+        console.log("EPISODE is UNDEFINED"); 
+        console.log("SELECTED EPISODE ID ===V"); 
+        console.log(this.selectedEpisodeId); 
+        episodeNum = this.selectedEpisodeId; 
+      }
+      else{
+        console.log("EPISODE is DEFINED"); 
+        console.log("EPISODE IS " + episodeNum); 
+      }
+
+      if (e.type == 'click') { turnPageStatus = e.target.value; }
+      else if (e.type === 'keyup' && e.keyCode === 37) { turnPageStatus = "prev"; }
+      else if (e.type === 'keyup' && e.keyCode === 39) { turnPageStatus = "next"; }
+      
+      if(e.type==="keyup") {
+        console.log("EPISODE AFTER KEY UP EVENT ==> " + this.selectedEpisodeId); 
+      }
+
+      // if(turnPageStatus != null || turnPageStatus != undefined) { this.onPageAction(episodeNum,turnPageStatus); }
+      this.onPageAction(episodeNum,turnPageStatus);
     },
     onPageAction(episodeNum, turnPageStatus)
     {
@@ -65,10 +104,6 @@ export default {
       // latest episode set up 
         this.latestEpisode = this.comic[0].slice(-1);   
         let latestEpisodeId = this.latestEpisode[0].id;
-
-        console.log("LATEST EPISODE in onPageActionMobileVersion ===V");
-        console.log(latestEpisodeId); 
-
 
       // Next 
       if(turnPageStatus == "next")
@@ -123,16 +158,25 @@ export default {
     },
     getLatestEpisode(){
       try {
-        // console.log("LATEST EPISODE ID ===V"); 
-        // console.log(this.comic[0].slice(-1)); 
-        // fetch(`${process.env.VUE_APP_URL}/api/comic/episode/latest`)
-        // .then(res => res.json())
-        // .then(data => this.latestEpisode = data)
-        // .catch(err => console.log(err.message))
-        // this.latestEpisode = this.comic[0].slice(-1); 
       }
       catch(error) {console.log(error);}
     },
+    handleKeyup (e) {
+    	switch (e.keyCode) {
+        case 37:
+          this.episodeAction(e);
+          break;
+         case 39: 
+          this.episodeAction(e);
+          break;
+      }
+    }
+  },
+  beforeMount () {
+  	window.addEventListener('keyup', this.episodeAction);
+  },
+  beforeDestroy () {
+  	window.removeEventListener('keyup', this.episodeAction);
   },
   mounted(){
     // mounted hooks
