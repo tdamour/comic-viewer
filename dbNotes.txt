@@ -11,7 +11,7 @@ npm run serve
 npm nodemon 
 
 // make sure that the image paths are accurate in both vue plugin & the database 
-
+v-if="episodeNum != 3"
 
 Updating npm and node_modules 
 --------------------------------------
@@ -37,8 +37,9 @@ Source: https://stackoverflow.com/questions/70811364/typeerror-cannot-read-prope
 Things to work on 
 ---------------------------
 
-KeyDown KeyUp Functions on VUE JS 
-Make the website a Progressive Web App (PWA)
+(X) !Finally!!! KeyDown KeyUp Functions on VUE JS 
+
+! Make the website a Progressive Web App (PWA)
 
 Make actual site 
 

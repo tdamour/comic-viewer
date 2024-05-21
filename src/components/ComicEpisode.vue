@@ -12,7 +12,7 @@
         </button>
       </div>
 
-      <div class="col-6" v-if="episodeNum != 3">
+      <div class="col-6">
         <button value="next" ref="nextEpBtn" id="nextEpBtn" @click="turnPageAction($event)" class="btn btn-primary w-100 p-3 fs-1 directBtns">
           Next
         </button>
