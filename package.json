@@ -3,11 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "vue-cli-service serve",
+    "serve": "npx nodemon server/server.js -w server",
     "build": "vue-cli-service build",
-    "serve": "npx nodemon server/server.js -w server"
+    "dev": "vue-cli-service serve"
   },
   "dependencies": {
+    "alertifyjs": "^1.14.0",
     "body-parser": "^1.20.1",
     "core-js": "^3.6.5",
     "cors": "^2.8.5",
@@ -15,14 +16,14 @@
     "express": "^4.18.2",
     "json-server": "^0.17.1",
     "mysql": "^2.18.1",
-    "register-service-worker": "^1.7.1",
+    "register-service-worker": "^1.7.2",
     "sequelize": "^6.21.3",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^5.0.8",
-    "@vue/cli-plugin-pwa": "^5.0.8",
+    "@vue/cli-plugin-pwa": "~5.0.0",
     "@vue/cli-plugin-router": "^5.0.8",
     "@vue/cli-service": "^5.0.8",
     "@vue/compiler-sfc": "^3.0.0",

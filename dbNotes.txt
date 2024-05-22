@@ -41,6 +41,16 @@ Things to work on
 
 ! Make the website a Progressive Web App (PWA)
 
+VUE_CLI_SERVICE_CONFIG_PATH=$PWD/config/vue.config.js
+
+vue/cli-plugin-pwa decide if this library is the best way forward 
+
+(X) Made changes to Manifest file 
+
+Now need to change favicon which shouldn't be hard but need one that is fit to all OS's or devices. 
+
+
+
 Make actual site 
 
 Things done 
